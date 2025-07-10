@@ -6,7 +6,10 @@ import { BackButton } from "../components/BackButton";
 type Blog = {
   id: string,
   title: string,
-  content: string
+  content: string,
+  author : {
+    name : string | null
+  } 
 }
 
 export const Blog = () => {
@@ -47,6 +50,7 @@ export const Blog = () => {
                 <h1 className="text-2xl font-bold mb-4">{blog.title}</h1>
                 <p>{blog.content}</p>
             </div>
-        </div>
+            <div className="col-start-5 mt-20 flex justify-end pr-10">{(blog.author.name==null) ? "Anonymous" : blog.author.name}</div>
+        </div>    
     );
 }

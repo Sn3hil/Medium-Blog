@@ -25,13 +25,17 @@ export const SignIn = () => {
     }
 
     return(
-        <div className="w-full h-full flex flex-col justify-center items-center relative text-white">
-            <div className="font-bold text-4xl absolute top-[35%]">SignIn</div>
-            <div className="w-[60%] relative">
-                <CustomInput tag="Email" type="text" onchange={(e)=>{setEmail(e.target.value)}}/>
-                <CustomInput tag="Password" type="password" onchange={(e)=>{setPassword(e.target.value)}}/>
-                <CustomButton label="SignIn" onclick={handleClick} className="bg-gray-300 text-black m-2 rounded-lg left-42 absolute"/>
-                <div className="absolute -bottom-20 left-22">Do not have any account? <Link to="/signup"><span className="underline">SignUp</span></Link></div>
+        <div className="w-full h-full flex justify-center items-center text-white">
+            <div className="w-full h-1/2 flex flex-col justify-center items-center">
+                <div className="font-bold text-4xl">SignIn</div>
+                <div>
+                    <CustomInput tag="Email" type="text" onchange={(e)=>{setEmail(e.target.value)}}/>
+                    <CustomInput tag="Password" type="password" onchange={(e)=>{setPassword(e.target.value)}}/>
+                </div>
+                <div className="flex flex-col items-center">
+                    <CustomButton label="SignIn" onclick={handleClick} className="bg-gray-300 text-black m-2 rounded-lg"/>
+                    <div className="">Do not have any account? <Link to="/signup"><span className="underline">SignUp</span></Link></div>
+                </div>
             </div>
         </div>
     )

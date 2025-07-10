@@ -3,8 +3,8 @@ import z from "zod/v4"
 //signUp
 export const signupInput = z.object({
     email : z.email(),
-    password : z.string().min(6)
-    // name : z.string().optional()
+    password : z.string().min(6),
+    name : z.string().optional()
 })
 
 //signIn

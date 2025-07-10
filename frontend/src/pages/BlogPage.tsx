@@ -9,7 +9,9 @@ type Blogtype = {
     id : string,
     title : string,
     content : string,
-
+    author : {
+        name : string | null
+    }
 }
 
 export const BlogPage = () => {
@@ -40,8 +42,8 @@ export const BlogPage = () => {
                 <div className="col-start-1 mt-20 flex justify-start pl-10">
                     <BackButton className="hover:cursor-pointer fixed" onclick={()=>{navigate(-1)}}/>
                 </div>
-                <div className="col-start-2 col-span-3 grid gap-10 mt-30 mb-10">
-                        {blogs.map((blog) => <BlogCards key={blog.id} title={blog.title} content={blog.content} id={blog.id}/>)}
+                <div className="col-start-2 col-span-3 mt-30 mb-10">
+                        {blogs.map((blog) => <BlogCards key={blog.id} title={blog.title} content={blog.content} id={blog.id} name={blog.author.name}/>)}
                 </div>
                 <div className="col-start-5 mt-20 flex justify-end pr-10">
                     <CustomButton label="Create" onclick={()=>{navigate("/blogs/create")}} className="bg-green-500 text-white rounded-2xl fixed"/>

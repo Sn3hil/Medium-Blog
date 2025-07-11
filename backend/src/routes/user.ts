@@ -74,6 +74,7 @@ userRouter.post('/signin', async (c) => {
   const {success} = signinInput.safeParse(body)
 
   if(!success){
+    c.status(401)
     return c.json({
       message : "Wrong input format"
     })
@@ -94,10 +95,12 @@ userRouter.post('/signin', async (c) => {
       })
     }
 
+    c.status(401)
     return c.json({
       message : "Email doesn't exists. SignUp first."
     })
   }catch(err){
+    c.status(500)
     return c.json({
       message : "Some error occurred. Please try some times later."
     })

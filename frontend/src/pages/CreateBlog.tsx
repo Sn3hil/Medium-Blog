@@ -3,13 +3,16 @@ import { BackButton } from "../components/BackButton"
 import { CustomButton } from "../components/CustomButton"
 import { useState } from "react"
 import axios from "axios"
+import { Spinner } from "../components/Spinner"
 
 export const CreateBlog = () => {
     const navigate = useNavigate()
     const [title , setTitle] = useState("")
     const [content , setContent] = useState("")
+    const [sentReq , setSentReq] = useState(false)
 
     async function handleClick(){
+        setSentReq(true)
         const token = localStorage.getItem('token')
         if(!token){
             navigate("/signin")
@@ -26,6 +29,7 @@ export const CreateBlog = () => {
                         }
                     }
                 )
+                setSentReq(false)
                 navigate("/blogs")
             }catch(err){
 
@@ -51,7 +55,7 @@ export const CreateBlog = () => {
                     </textarea>
             </div>
             <div className="col-start-5 mt-20 flex justify-end pr-10">
-                <CustomButton label="Create" onclick={handleClick} className="bg-green-500 text-white rounded-2xl fixed"/>
+                <CustomButton label={sentReq ? <Spinner color="fill-green-500"/> : "Create"} onclick={handleClick} className="bg-green-500 text-white rounded-2xl fixed"/>
             </div>
         </div>
     )

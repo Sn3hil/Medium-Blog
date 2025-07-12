@@ -37,6 +37,7 @@ userRouter.post('/signup', async (c) => {
     })
 
     if(already_exist){
+      c.status(401)
       return c.json({
         message : "Email already exists.Please try another email."
       })

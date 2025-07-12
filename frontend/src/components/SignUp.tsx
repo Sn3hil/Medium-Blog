@@ -4,6 +4,7 @@ import { CustomInput } from "./CustomInput"
 import { Spinner } from "./Spinner"
 import { useState } from "react"
 import axios from "axios"
+import toast, { Toaster } from 'react-hot-toast';
 
 export const SignUp = () => {
     const navigate = useNavigate()
@@ -12,6 +13,7 @@ export const SignUp = () => {
     const [password ,setPassword] = useState('')
     const [name ,setName] = useState('')
     const [sentReq , setSentReq] = useState(false)
+    const notify = () => toast.error('This email already exists sybau🥀');
 
     async function handleClick() : Promise<void> {
         setSentReq(true)
@@ -25,15 +27,20 @@ export const SignUp = () => {
                 }
             )
             localStorage.setItem('token' , res.data.jwt)
-            setSentReq(false)
             navigate("/blogs")
         }catch(err){
+            if (axios.isAxiosError(err) && err.response?.status === 401) {
+                notify();
+            }
             console.error(err)
+        }finally{
+            setSentReq(false)
         }
     }
 
     return(
         <div className="w-full h-full flex justify-center items-center text-white">
+            <Toaster/>
             <div className="w-full h-1/2 flex flex-col justify-center items-center">
                 <div className="font-bold text-4xl">SignUp</div>
                 <div>

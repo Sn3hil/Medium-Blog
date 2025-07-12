@@ -32,8 +32,7 @@ export const BlogPageNavbar = ({color} : {color? : string}) => {
         <div className="absolute top-0 left-0 h-15 w-full z-50 grid grid-cols-2 font-poppins bg-black text-white">
             <div className="items-center pl-20 flex justify-start">
                 <span onClick={()=>{
-                    navigate("/")
-                    localStorage.removeItem('token')
+                    navigate("/blogs")
                     }} className="hover:cursor-pointer font-bold text-3xl tracking-wide">
                     Medium
                 </span>
@@ -47,6 +46,12 @@ export const BlogPageNavbar = ({color} : {color? : string}) => {
                 </div>
                 <div className="hover:cursor-pointer">
                     About
+                </div>
+                <div className="hover:cursor-pointer"
+                    onClick={()=>{
+                        navigate('/blogs/myposts')
+                    }}>
+                    My Posts
                 </div>
                 <div className="hover:cursor-pointer" 
                     onClick={

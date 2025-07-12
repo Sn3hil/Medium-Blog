@@ -106,6 +106,31 @@ blogRouter.put('/', async (c) => {
   } 
 })
 
+blogRouter.delete('/' , async(c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl : c.env.DATABASE_URL
+  }).$extends(withAccelerate())
+
+  const body = await c.req.json()
+
+  try{
+    const blog = await prisma.post.delete({
+      where : {
+        id : body.id
+      }
+    })
+    c.status(200)
+    return c.json({
+      message : "deletion successful"
+    })
+  }catch(err){
+    c.status(401)
+    return c.json({
+      message : "Some error occurred while deleting blog."
+    })
+  } 
+})
+
 
 // add pagination
 blogRouter.get('/bulk' , async(c) => {
@@ -174,6 +199,29 @@ blogRouter.get('/:id', async (c) => {
   }
 })
 
+blogRouter.get('/users/me/blogs' , async(c)=>{
+  const prisma = new PrismaClient({
+    datasourceUrl : c.env.DATABASE_URL
+  }).$extends(withAccelerate())
+
+  const userId = c.get("userId")
+
+  try{
+    const blogs = await prisma.post.findMany({
+      where : {
+        authorId : userId 
+      }
+    })
+
+    c.status(200)
+    return c.json({
+      blogs
+    })
+  }catch(err){
+    return c.status(503)
+  }
+})
+
 // blogRouter.post('/deleteAll' , async (c)=>{
 //   const prisma = new PrismaClient({
 //     datasourceUrl : c.env.DATABASE_URL
@@ -184,6 +232,31 @@ blogRouter.get('/:id', async (c) => {
 
 //   return c.json({
 //     message : "Cleared"
+//   })
+// })
+
+// blogRouter.post('/delete/:id' , async(c)=>{
+//   const prisma = new PrismaClient({
+//     datasourceUrl : c.env.DATABASE_URL
+//   }).$extends(withAccelerate())
+
+//   const id = c.req.param('id')
+
+//   await prisma.post.delete({
+//     where : {
+//       id
+//     }
+//   })
+
+//   return c.json({
+//     deleted : id
+//   })
+// })
+
+// blogRouter.put('/dummy' , async(c)=>{
+//   const body = await c.req.json()
+//   return c.json({
+//     body
 //   })
 // })
 
